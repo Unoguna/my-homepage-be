@@ -1,0 +1,11 @@
+
+services:
+  mysql:
+    ports: []
+
+  backend:
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+    restart: always

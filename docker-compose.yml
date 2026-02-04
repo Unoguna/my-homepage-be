@@ -13,27 +13,17 @@ services:
       - --collation-server=utf8mb4_unicode_ci
     volumes:
       - myhome_mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-p${MYSQL_ROOT_PASSWORD}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-    restart: unless-stopped
 
   backend:
     build: .
     container_name: myhome-backend
+    depends_on:
+      - mysql
     environment:
-      SPRING_PROFILES_ACTIVE: ${SPRING_PROFILES_ACTIVE:-prod}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-    depends_on:
-      mysql:
-        condition: service_healthy
-    ports:
-      - "8080:8080"
-    restart: unless-stopped
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    # 포트/프로필은 local/prod에서 오버라이드
 
 volumes:
   myhome_mysql_data:
