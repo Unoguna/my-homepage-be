@@ -14,16 +14,5 @@ services:
     volumes:
       - myhome_mysql_data:/var/lib/mysql
 
-  backend:
-    build: .
-    container_name: myhome-backend
-    depends_on:
-      - mysql
-    environment:
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-    # 포트/프로필은 local/prod에서 오버라이드
-
 volumes:
   myhome_mysql_data:
