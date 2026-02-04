@@ -1,0 +1,18 @@
+services:
+  mysql:
+    # 배포에서는 DB 포트 외부 오픈 X (보안)
+    ports: []
+
+  backend:
+    build: .
+    container_name: myhome-backend
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    restart: always

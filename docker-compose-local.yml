@@ -2,7 +2,3 @@ services:
   mysql:
     ports:
       - "3307:3306"
-
-  backend:
-    environment:
-      SPRING_PROFILES_ACTIVE: local
